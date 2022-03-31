@@ -1,0 +1,85 @@
+#include <Stepper.h>
+#include <Servo.h>
+
+Servo myservo;
+Stepper mojSilnik(32, 8, 9, 10, 11);
+
+int foto = 0;
+int krok = 0;
+int kier = 0;
+int ant = 0;
+int c = 0;
+int abc = 0;
+
+int fk = 0;
+int Array[128];
+
+void setup() {
+  // put your setup code here, to run once:
+
+  myservo.attach(5);
+
+  // Setup Serial Monitor
+  Serial.begin(115200);
+mojSilnik.setSpeed(500); 
+
+myservo.write(46);
+
+delay(10000);
+
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+
+if (abc == 0) {
+for(int i=46; i<66; i++){
+  // 30 stopni w osi z
+myservo.write(i);
+
+for(int n=0; n<512; n+=8){
+  // 90/8 stopni w osi x
+if ( i % 2 == 0){
+mojSilnik.step(-8);
+
+}
+else{
+mojSilnik.step(8);
+
+}
+delay(1000);
+foto = analogRead(A0); 
+
+Array [fk] = foto; 
+fk++;
+
+}
+fk = 0;
+
+
+if ( i % 2 == 0){
+for(int d=0; d<64; d++){
+Serial.print(Array [d]);
+Serial.print(",");
+}}
+else{
+  for(int d=63; d>-1; d--){
+Serial.print(Array [d]);
+Serial.print(",");
+}
+  }
+  Serial.print("\n");
+}
+
+
+myservo.write(46);
+
+
+abc = 1;
+
+}
+else{}
+
+}
